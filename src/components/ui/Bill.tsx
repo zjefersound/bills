@@ -28,7 +28,7 @@ export function Bill({ data }: BillProps) {
             <p>{data.title}</p>
           </Text>
           <p className="text-gray-400">
-            {format(data.createdAt, "dd/MM/yyyy")}
+            {format(new Date(data.createdAt), "dd/MM/yyyy")}
           </p>
         </div>
         <div className="ml-auto mr-3">

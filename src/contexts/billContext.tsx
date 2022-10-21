@@ -1,10 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { IBill } from "../models/IBill";
+import { billStorage } from "../storages/billStorage";
 
 interface BillProviderProps {
   children: React.ReactNode;
 }
-interface BillContextType {
+export interface BillContextType {
   bills: IBill[];
   saveBill: (bill: IBill) => void;
   togglePayBill: (id: string) => void;
@@ -17,29 +18,7 @@ export const BillContext = createContext<BillContextType>(
 );
 
 const BillProvider = ({ children }: BillProviderProps) => {
-  const [bills, setBills] = useState<IBill[]>([
-    {
-      id: Math.random().toString(),
-      title: "Mercado",
-      value: 486.99,
-      isPaid: false,
-      createdAt: new Date(),
-    },
-    {
-      id: Math.random().toString(),
-      title: "Internet",
-      value: 186.99,
-      isPaid: false,
-      createdAt: new Date(),
-    },
-    {
-      id: Math.random().toString(),
-      title: "Movest",
-      value: 316.99,
-      isPaid: false,
-      createdAt: new Date(),
-    },
-  ]);
+  const [bills, setBills] = useState<IBill[]>([]);
 
   const saveBill = (bill: IBill) => {
     const newBill: IBill = {
@@ -49,15 +28,24 @@ const BillProvider = ({ children }: BillProviderProps) => {
       isPaid: false,
       createdAt: new Date(),
     };
-    setBills([...bills, newBill]);
-  };
-  const togglePayBill = (id: string) => {
-    const newBills = bills.map((bill) => {
-      if (bill.id === id) {
-        bill.isPaid = !bill.isPaid;
-      }
-      return bill;
+    setBills((prev) => {
+      const value = [...prev, newBill];
+      billStorage.set(value);
+      return value;
     });
+  };
+
+  const togglePayBill = (id: string) => {
+    const newBills = (prev: IBill[]) => {
+      const value = prev.map((bill) => {
+        if (bill.id === id) {
+          bill.isPaid = !bill.isPaid;
+        }
+        return bill;
+      });
+      billStorage.set(value);
+      return value;
+    };
 
     setBills(newBills);
   };
@@ -66,6 +54,10 @@ const BillProvider = ({ children }: BillProviderProps) => {
   const totalPaid = bills.filter((bill) => bill.isPaid).reduce(sumBills, 0);
   const totalToPay = bills.filter((bill) => !bill.isPaid).reduce(sumBills, 0);
 
+  useEffect(() => {
+    const data = billStorage.get();
+    data && setBills(data);
+  }, []);
   return (
     <BillContext.Provider
       value={{ bills, saveBill, togglePayBill, totalPaid, totalToPay }}

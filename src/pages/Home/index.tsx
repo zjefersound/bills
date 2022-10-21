@@ -5,10 +5,9 @@ import { BillsList } from "../../components/ui/BillsList";
 import { Text } from "../../components/ui/Text";
 import { useBill } from "../../hooks/useBill";
 import { toCurrency } from "../../utils/toCurrency";
-
+import { Link } from "react-router-dom";
 export function Home() {
   const { totalPaid, totalToPay } = useBill();
-
   return (
     <Screen.Root>
       <Header />
@@ -33,11 +32,13 @@ export function Home() {
               <p className="font-bold ">{toCurrency(totalToPay)}</p>
             </Text>
           </div>
-
-          <button className="ml-auto p-3 rounded-md flex items-center text-green-500 hover:text-green-300 hover:bg-gray-800 transition-all active:opacity-75">
+          <Link
+            to="/add-bill"
+            className="ml-auto p-3 rounded-md flex items-center text-green-500 hover:text-green-300 hover:bg-gray-800 transition-all active:opacity-75"
+          >
             <Plus className="mr-2" />
             Add Bill
-          </button>
+          </Link>
         </div>
         <BillsList />
       </Screen.Section>

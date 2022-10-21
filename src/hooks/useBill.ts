@@ -1,6 +1,6 @@
 import { useContext } from "react";
-import { BillContext } from "../contexts/billContext";
+import { BillContext, BillContextType } from "../contexts/billContext";
 
 export const useBill = () => {
-  return useContext(BillContext);
+  return useContext(BillContext) as BillContextType;
 };

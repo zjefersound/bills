@@ -1,11 +1,11 @@
 import BillProvider from "./contexts/billContext";
-import { Home } from "./pages/Home";
+import Routes from "./routes/Routes";
 import "./styles/global.css";
 
 function App() {
   return (
     <BillProvider>
-      <Home/>
+      <Routes />
     </BillProvider>
   );
 }
