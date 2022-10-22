@@ -9,6 +9,7 @@ export interface BillContextType {
   bills: IBill[];
   saveBill: (bill: IBill) => void;
   togglePayBill: (id: string) => void;
+  deleteBill: (id: string) => void;
   totalPaid: number;
   totalToPay: number;
 }
@@ -50,6 +51,18 @@ const BillProvider = ({ children }: BillProviderProps) => {
     setBills(newBills);
   };
 
+  const deleteBill = (id: string) => {
+    const newBills = (prev: IBill[]) => {
+      const value = prev.filter((bill) => {
+        return bill.id !== id;
+      });
+      billStorage.set(value);
+      return value;
+    };
+
+    setBills(newBills);
+  };
+
   const sumBills = (sum: number, bill: IBill) => sum + bill.value;
   const totalPaid = bills.filter((bill) => bill.isPaid).reduce(sumBills, 0);
   const totalToPay = bills.filter((bill) => !bill.isPaid).reduce(sumBills, 0);
@@ -60,7 +73,7 @@ const BillProvider = ({ children }: BillProviderProps) => {
   }, []);
   return (
     <BillContext.Provider
-      value={{ bills, saveBill, togglePayBill, totalPaid, totalToPay }}
+      value={{ bills, saveBill, togglePayBill, totalPaid, totalToPay, deleteBill }}
     >
       {children}
     </BillContext.Provider>

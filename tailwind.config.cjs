@@ -25,6 +25,10 @@ module.exports = {
         500: "#35FFAA",
         300: "#59FFB9",
       },
+      red: {
+        500: "#FF3535",
+        300: "#FF5656",
+      },
     },
     extend: {
       fontFamily: {

@@ -1,5 +1,5 @@
 import { CurrencyDollar, Tag } from "phosphor-react";
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { TextInput } from "../../components/forms/TextInput";
 import { Header } from "../../components/layout/Header";
@@ -25,7 +25,8 @@ export function AddBill() {
     }));
   };
 
-  const createBill = () => {
+  const createBill = (event: FormEvent) => {
+    event.preventDefault();
     const bill = {
       id: Math.random().toString(),
       createdAt: new Date(),
@@ -36,45 +37,49 @@ export function AddBill() {
     saveBill(bill);
     navigate("/");
   };
+
   return (
     <Screen.Root>
       <Header title="Add Bill" goBack />
       <Screen.Section className="space-y-4">
         <Heading>Create a new bill</Heading>
         <p className="text-gray-400">Fill the following fields</p>
-
-        <div className="space-y-1">
-          <Text>Title</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <Tag />
-            </TextInput.Icon>
-            <TextInput.Input
-              id="title"
-              placeholder="Type the title"
-              value={data.title}
-              onChange={handleInputChange}
-            />
-          </TextInput.Root>
-        </div>
-        <div className="space-y-1">
-          <Text>Value</Text>
-          <TextInput.Root>
-            <TextInput.Icon>
-              <CurrencyDollar />
-            </TextInput.Icon>
-            <TextInput.Input
-              id="value"
-              type="number"
-              placeholder="0.00"
-              value={data.value}
-              onChange={handleInputChange}
-            />
-          </TextInput.Root>
-        </div>
-        <div className="pt-5">
-          <Button onClick={createBill}>Save</Button>
-        </div>
+        <form onSubmit={createBill}>
+          <div className="space-y-1">
+            <Text>Title</Text>
+            <TextInput.Root>
+              <TextInput.Icon>
+                <Tag />
+              </TextInput.Icon>
+              <TextInput.Input
+                id="title"
+                placeholder="Type the title"
+                value={data.title}
+                onChange={handleInputChange}
+                required
+              />
+            </TextInput.Root>
+          </div>
+          <div className="space-y-1">
+            <Text>Value</Text>
+            <TextInput.Root>
+              <TextInput.Icon>
+                <CurrencyDollar />
+              </TextInput.Icon>
+              <TextInput.Input
+                id="value"
+                type="number"
+                placeholder="0.00"
+                value={data.value}
+                onChange={handleInputChange}
+                required
+              />
+            </TextInput.Root>
+          </div>
+          <div className="pt-5">
+            <Button type="submit">Save</Button>
+          </div>
+        </form>
       </Screen.Section>
     </Screen.Root>
   );
