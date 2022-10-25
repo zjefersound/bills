@@ -19,7 +19,7 @@ export function Home() {
         </Text>
         <div className="my-4 flex">
           <div>
-            <Text size="sm">Total pago</Text>
+            <Text size="sm">Total paid</Text>
             <Text size="lg" asChild>
               <p className="font-bold text-green-300">
                 {toCurrency(totalPaid)}
@@ -27,7 +27,7 @@ export function Home() {
             </Text>
           </div>
           <div className="ml-5">
-            <Text size="sm">A pagar</Text>
+            <Text size="sm">To pay</Text>
             <Text size="lg" asChild>
               <p className="font-bold ">{toCurrency(totalToPay)}</p>
             </Text>

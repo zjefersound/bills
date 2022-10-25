@@ -7,7 +7,9 @@ interface BillProviderProps {
 }
 export interface BillContextType {
   bills: IBill[];
-  saveBill: (bill: IBill) => void;
+  getBillById: (id: string) => IBill | null;
+  createBill: (bill: IBill) => void;
+  updateBill: (bill: IBill) => void;
   togglePayBill: (id: string) => void;
   deleteBill: (id: string) => void;
   totalPaid: number;
@@ -21,7 +23,12 @@ export const BillContext = createContext<BillContextType>(
 const BillProvider = ({ children }: BillProviderProps) => {
   const [bills, setBills] = useState<IBill[]>([]);
 
-  const saveBill = (bill: IBill) => {
+  const getBillById = (id: string) => {
+    const allBills = billStorage.get() || [];
+    return allBills.find((bill) => bill.id === id) || null;
+  };
+
+  const createBill = (bill: IBill) => {
     const newBill: IBill = {
       id: Math.random().toString(),
       title: bill.title,
@@ -31,6 +38,19 @@ const BillProvider = ({ children }: BillProviderProps) => {
     };
     setBills((prev) => {
       const value = [...prev, newBill];
+      billStorage.set(value);
+      return value;
+    });
+  };
+
+  const updateBill = (billToUpdate: IBill) => {
+    setBills((prev) => {
+      const value = prev.map((bill) => {
+        if (bill.id === billToUpdate.id) {
+          return billToUpdate;
+        }
+        return bill;
+      });
       billStorage.set(value);
       return value;
     });
@@ -73,7 +93,16 @@ const BillProvider = ({ children }: BillProviderProps) => {
   }, []);
   return (
     <BillContext.Provider
-      value={{ bills, saveBill, togglePayBill, totalPaid, totalToPay, deleteBill }}
+      value={{
+        bills,
+        getBillById,
+        createBill,
+        updateBill,
+        togglePayBill,
+        totalPaid,
+        totalToPay,
+        deleteBill,
+      }}
     >
       {children}
     </BillContext.Provider>

@@ -12,6 +12,7 @@ import { format } from "date-fns";
 import { useBill } from "../../hooks/useBill";
 import { useState } from "react";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
 interface BillProps {
   data: IBill;
@@ -31,8 +32,15 @@ export function Bill({ data }: BillProps) {
         <CurrencyDollar className="h-6 w-6" />
       </div>
       <div className="bg-gray-800 p-4 pl-6 flex-1 rounded-md">
-        <div className="flex items-center">
-          <div onClick={() => setOpen((prev) => !prev)}>
+        <div className="flex items-center relative">
+          <div
+            onClick={() => setOpen((prev) => !prev)}
+            className={clsx(
+              "-top-4 -left-6 -right-4 -bottom-4 absolute cursor-pointer",
+              { "-bottom-0": open }
+            )}
+          ></div>
+          <div>
             <Text asChild>
               <p>{data.title}</p>
             </Text>
@@ -47,6 +55,7 @@ export function Bill({ data }: BillProps) {
           </div>
           <Checkbox
             value={data.isPaid}
+            className="z-10"
             onChange={() => togglePayBill(data.id)}
           />
         </div>
@@ -64,9 +73,11 @@ export function Bill({ data }: BillProps) {
           >
             <CaretDoubleUp />
           </button>
-          <button className=" flex items-center">
-            <PencilSimple className="mr-2" /> Edit
-          </button>
+          <Link to={`/edit-bill/${data.id}`}>
+            <button className=" flex items-center">
+              <PencilSimple className="mr-2" /> Edit
+            </button>
+          </Link>
           <button
             className="text-red-300 flex items-center"
             onClick={() => deleteBill(data.id)}
