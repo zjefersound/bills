@@ -19,16 +19,16 @@ export function EditBill() {
       [event.target.id]: event.target.value,
     }));
   };
+  const handleIsPaidChange = (newValue: boolean) => {
+    setData((prev) => ({
+      ...prev,
+      isPaid: newValue,
+    }));
+  };
 
   const saveBill = (event: FormEvent) => {
     event.preventDefault();
-    const bill = {
-      ...data,
-      title: data.title,
-      value: Number(data.value),
-      isPaid: false,
-    } as IBill;
-    updateBill(bill);
+    updateBill(data);
     navigate("/");
   };
 
@@ -53,6 +53,10 @@ export function EditBill() {
           <BillForm.ValueInput
             value={data.value}
             onChange={handleInputChange}
+          />
+          <BillForm.IsPaidInput
+            value={data.isPaid}
+            onChange={handleIsPaidChange}
           />
           <BillForm.SubmitButton />
         </BillForm.Root>

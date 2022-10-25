@@ -3,6 +3,7 @@ import { ChangeEventHandler, FormEventHandler, ReactNode } from "react";
 import { TextInput } from "../../components/forms/TextInput";
 import { Button } from "../../components/ui/Button";
 import { Text } from "../../components/ui/Text";
+import { Checkbox } from "./Checkbox";
 
 interface BillFormRootProps {
   onSubmit?: FormEventHandler<HTMLFormElement>;
@@ -71,6 +72,24 @@ function BillFormValueInput({ value, onChange }: BillFormValueInputProps) {
 }
 BillFormValueInput.displayName = "BillForm.ValueInput";
 
+interface BillFormIsPaidInputProps {
+  value?: boolean;
+  onChange: (value: boolean) => void;
+}
+
+function BillFormIsPaidInput({ value, onChange }: BillFormIsPaidInputProps) {
+  return (
+    <div className="space-y-1 flex flex-col">
+      <Text>Is paid</Text>
+      <label className="flex items-center w-fit cursor-pointer space-x-2">
+        <Checkbox value={value} onChange={() => onChange(!value)} />
+        <span>Is it already paid?</span>
+      </label>
+    </div>
+  );
+}
+BillFormIsPaidInput.displayName = "BillForm.IsPaidInput";
+
 function BillFormSubmitButton() {
   return (
     <div className="pt-5">
@@ -84,5 +103,6 @@ export const BillForm = {
   Root: BillFormRoot,
   TitleInput: BillFormTitleInput,
   ValueInput: BillFormValueInput,
+  IsPaidInput: BillFormIsPaidInput,
   SubmitButton: BillFormSubmitButton,
 };
