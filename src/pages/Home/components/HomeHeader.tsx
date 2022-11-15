@@ -14,17 +14,21 @@ export function HomeHeader() {
           Keep track of your bills and make your money worth more
         </p>
       </Text>
-      <div className="my-4 flex">
+      <div className="my-4 grid grid-cols-3">
         <div>
           <Text size="sm">Total paid</Text>
-          <Text size="lg" asChild>
-            <p className="font-bold text-green-300">{toCurrency(totalPaid)}</p>
+          <Text asChild>
+            <p className="font-bold text-green-300 text-ellipsis overflow-hidden">
+              {toCurrency(totalPaid)}
+            </p>
           </Text>
         </div>
-        <div className="ml-5">
+        <div className="ml-2">
           <Text size="sm">To pay</Text>
-          <Text size="lg" asChild>
-            <p className="font-bold ">{toCurrency(totalToPay)}</p>
+          <Text asChild>
+            <p className="font-bold text-ellipsis overflow-hidden">
+              {toCurrency(totalToPay)}
+            </p>
           </Text>
         </div>
         <Link

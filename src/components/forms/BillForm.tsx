@@ -58,7 +58,7 @@ function BillFormValueInput({ value, onChange }: BillFormValueInputProps) {
         <TextInput.Icon>
           <CurrencyDollar />
         </TextInput.Icon>
-        {value && (
+        {typeof value === 'number' && (
           <TextInput.Currency
             name="value"
             placeholder="0.00"

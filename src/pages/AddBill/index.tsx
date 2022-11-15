@@ -12,7 +12,7 @@ export function AddBill() {
   const { createBill } = useBill();
   const [data, setData] = useState({
     title: "",
-    value: undefined,
+    value: 0,
   });
 
   const handleInputChange = (value: any, name: string) => {
