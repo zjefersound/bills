@@ -1,18 +1,18 @@
 import { Header } from "../../components/layout/Header";
 import { Screen } from "../../components/layout/Screen";
-import { BillsList } from "../../components/ui/BillsList";
 import { Menu } from "../../components/ui/Menu";
-import { HomeHeader } from "./components/HomeHeader";
 
-export function Home() {
+export function Statistics() {
   return (
     <Screen.Root>
-      <Header>
+      <Header title="Statistics" goBack>
         <Menu />
       </Header>
       <Screen.Section>
-        <HomeHeader />
-        <BillsList />
+        To do:
+        - Bills per month
+        - Salary - Bills
+        
       </Screen.Section>
     </Screen.Root>
   );

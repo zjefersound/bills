@@ -2,6 +2,7 @@ import { createBrowserRouter, RouterProvider, Route } from "react-router-dom";
 import { AddBill } from "../pages/AddBill";
 import { EditBill } from "../pages/EditBill";
 import { Home } from "../pages/Home";
+import { Statistics } from "../pages/Statistics";
 
 const router = createBrowserRouter([
   {
@@ -15,6 +16,10 @@ const router = createBrowserRouter([
   {
     path: "/edit-bill/:id",
     element: <EditBill />,
+  },
+  {
+    path: "/statistics",
+    element: <Statistics />,
   },
 ]);
 const Routes = () => {
