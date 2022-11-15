@@ -1,5 +1,6 @@
 import { InputHTMLAttributes, ReactNode } from "react";
 import { Slot } from "@radix-ui/react-slot";
+import CurrencyInput, { CurrencyInputProps } from 'react-currency-input-field';
 
 export interface TextInputInputProps
   extends InputHTMLAttributes<HTMLInputElement> {}
@@ -45,8 +46,19 @@ function TextInputInput(props: TextInputInputProps) {
 }
 TextInputInput.displayName = "TextInput.Input";
 
+function TextInputCurrency(props: CurrencyInputProps) {
+  return (
+    <CurrencyInput
+      className="outline-0 bg-transparent flex-1 text-gray-100 text-xs placeholder:text-gray-400"
+      {...props}
+    />
+  );
+}
+TextInputInput.displayName = "TextInput.Currency";
+
 export const TextInput = {
   Root: TextInputRoot,
   Input: TextInputInput,
   Icon: TextInputIcon,
+  Currency: TextInputCurrency
 };

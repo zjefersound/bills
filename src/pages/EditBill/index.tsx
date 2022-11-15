@@ -13,16 +13,10 @@ export function EditBill() {
   const { getBillById, updateBill } = useBill();
   const [data, setData] = useState<IBill>({} as IBill);
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (value: any, name: string) => {
     setData((prev) => ({
       ...prev,
-      [event.target.id]: event.target.value,
-    }));
-  };
-  const handleIsPaidChange = (newValue: boolean) => {
-    setData((prev) => ({
-      ...prev,
-      isPaid: newValue,
+      [name]: value,
     }));
   };
 
@@ -56,7 +50,7 @@ export function EditBill() {
           />
           <BillForm.IsPaidInput
             value={data.isPaid}
-            onChange={handleIsPaidChange}
+            onChange={handleInputChange}
           />
           <BillForm.SubmitButton />
         </BillForm.Root>

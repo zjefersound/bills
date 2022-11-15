@@ -1,5 +1,5 @@
 import { CurrencyDollar, Tag } from "phosphor-react";
-import { ChangeEventHandler, FormEventHandler, ReactNode } from "react";
+import { FormEventHandler, ReactNode } from "react";
 import { TextInput } from "../../components/forms/TextInput";
 import { Button } from "../../components/ui/Button";
 import { Text } from "../../components/ui/Text";
@@ -21,7 +21,7 @@ BillFormRoot.displayName = "BillForm.Root";
 
 interface BillFormTitleInputProps {
   value?: string;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: (value: string, name: string) => void;
 }
 
 function BillFormTitleInput({ value, onChange }: BillFormTitleInputProps) {
@@ -36,7 +36,7 @@ function BillFormTitleInput({ value, onChange }: BillFormTitleInputProps) {
           id="title"
           placeholder="Type the title"
           value={value}
-          onChange={onChange}
+          onChange={(e) => onChange(e.target.value, e.target.id)}
           required
         />
       </TextInput.Root>
@@ -47,7 +47,7 @@ BillFormTitleInput.displayName = "BillForm.TitleInput";
 
 interface BillFormValueInputProps {
   value?: number;
-  onChange: ChangeEventHandler<HTMLInputElement>;
+  onChange: (value: number, name: string) => void;
 }
 
 function BillFormValueInput({ value, onChange }: BillFormValueInputProps) {
@@ -58,14 +58,19 @@ function BillFormValueInput({ value, onChange }: BillFormValueInputProps) {
         <TextInput.Icon>
           <CurrencyDollar />
         </TextInput.Icon>
-        <TextInput.Input
-          id="value"
-          type="number"
-          placeholder="0.00"
-          value={value}
-          onChange={onChange}
-          required
-        />
+        {value && (
+          <TextInput.Currency
+            name="value"
+            placeholder="0.00"
+            intlConfig={{ locale: "pt-BR", currency: "BRL" }}
+            defaultValue={value}
+            decimalsLimit={2}
+            onValueChange={(_, name, values) =>
+              onChange(values?.float || 0, name || "")
+            }
+            required
+          />
+        )}
       </TextInput.Root>
     </div>
   );
@@ -74,7 +79,7 @@ BillFormValueInput.displayName = "BillForm.ValueInput";
 
 interface BillFormIsPaidInputProps {
   value?: boolean;
-  onChange: (value: boolean) => void;
+  onChange: (value: boolean, name: string) => void;
 }
 
 function BillFormIsPaidInput({ value, onChange }: BillFormIsPaidInputProps) {
@@ -82,7 +87,7 @@ function BillFormIsPaidInput({ value, onChange }: BillFormIsPaidInputProps) {
     <div className="space-y-1 flex flex-col">
       <Text>Is paid</Text>
       <label className="flex items-center w-fit cursor-pointer space-x-2">
-        <Checkbox value={value} onChange={() => onChange(!value)} />
+        <Checkbox value={value} onChange={() => onChange(!value, "isPaid")} />
         <span>Is it already paid?</span>
       </label>
     </div>

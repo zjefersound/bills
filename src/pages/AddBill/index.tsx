@@ -15,10 +15,10 @@ export function AddBill() {
     value: undefined,
   });
 
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleInputChange = (value: any, name: string) => {
     setData((prev) => ({
       ...prev,
-      [event.target.id]: event.target.value,
+      [name]: value,
     }));
   };
 
@@ -42,15 +42,15 @@ export function AddBill() {
         <Heading>Create a new bill</Heading>
         <p className="text-gray-400">Fill the following fields</p>
         <BillForm.Root onSubmit={saveBill}>
-          <BillForm.TitleInput 
+          <BillForm.TitleInput
             value={data.title}
             onChange={handleInputChange}
           />
-          <BillForm.ValueInput 
+          <BillForm.ValueInput
             value={data.value}
             onChange={handleInputChange}
           />
-          <BillForm.SubmitButton/>
+          <BillForm.SubmitButton />
         </BillForm.Root>
       </Screen.Section>
     </Screen.Root>
