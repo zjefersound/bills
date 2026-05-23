@@ -1,6 +1,27 @@
-@tailwind base;
-@tailwind utilities;
-@tailwind components;
+@import "tailwindcss";
+
+@theme {
+  --font-family-sans: Inter, sans-serif;
+
+  --color-black: #212228;
+  --color-gray-900: #242631;
+  --color-gray-800: #2a2f48;
+  --color-gray-700: #313859;
+  --color-gray-400: #646da0;
+  --color-gray-100: #d3d8f5;
+  --color-white: #ffffff;
+  --color-green-500: #35ffaa;
+  --color-green-300: #59ffb9;
+  --color-red-500: #ff3535;
+  --color-red-300: #ff5656;
+
+  --font-size-xs: 14px;
+  --font-size-sm: 16px;
+  --font-size-md: 18px;
+  --font-size-lg: 20px;
+  --font-size-xl: 24px;
+  --font-size-2xl: 32px;
+}
 
 input,
 textarea,
