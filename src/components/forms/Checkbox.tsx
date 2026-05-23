@@ -1,5 +1,5 @@
 import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
-import { Check } from "phosphor-react";
+import { Check } from "@phosphor-icons/react";
 import { FormEventHandler } from "react";
 
 export interface CheckboxProps {

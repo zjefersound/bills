@@ -1,4 +1,4 @@
-import { Plus } from "phosphor-react";
+import { Plus } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { Text } from "../../../components/ui/Text";
 import { useBill } from "../../../hooks/useBill";

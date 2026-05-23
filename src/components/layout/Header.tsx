@@ -1,5 +1,5 @@
 import { Heading } from "../ui/Heading";
-import { ArrowLeft, Coins } from "phosphor-react";
+import { ArrowLeft, Coins } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { ReactNode } from "react";
 interface HeaderProps {

@@ -1,4 +1,4 @@
-import { ChartBar, House } from "phosphor-react";
+import { ChartBar, House } from "@phosphor-icons/react";
 
 const defaultMenus = [
   {
