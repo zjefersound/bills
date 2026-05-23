@@ -1,0 +1,6 @@
+[build]
+  command = "yarn build"
+  publish = "dist"
+
+[context.production.environment]
+  NETLIFY_NODE_VERSION = "20.17.0"
