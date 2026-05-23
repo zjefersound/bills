@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { X, List } from "phosphor-react";
+import { X, List } from "@phosphor-icons/react";
 import { ReactNode } from "react";
 import { Heading } from "./Heading";
 

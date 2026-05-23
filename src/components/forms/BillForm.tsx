@@ -1,4 +1,4 @@
-import { CurrencyDollar, Tag } from "phosphor-react";
+import { CurrencyDollar, Tag } from "@phosphor-icons/react";
 import { FormEventHandler, ReactNode } from "react";
 import { TextInput } from "../../components/forms/TextInput";
 import { Button } from "../../components/ui/Button";

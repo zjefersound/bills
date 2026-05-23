@@ -1,4 +1,4 @@
-import { House } from "phosphor-react";
+import { House } from "@phosphor-icons/react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { menuTemplates } from "../../constants/menuTemplates";

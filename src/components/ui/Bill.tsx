@@ -3,7 +3,7 @@ import {
   CurrencyDollar,
   PencilSimple,
   Trash,
-} from "phosphor-react";
+} from "@phosphor-icons/react";
 import { IBill } from "../../models/IBill";
 import { toCurrency } from "../../utils/toCurrency";
 import { Checkbox } from "../forms/Checkbox";
