@@ -1,4 +1,4 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { BillForm } from "../../components/forms/BillForm";
 import { Header } from "../../components/layout/Header";
@@ -12,8 +12,17 @@ export function EditBill() {
   const navigate = useNavigate();
   const { getBillById, updateBill } = useBill();
   const [data, setData] = useState<IBill>({} as IBill);
+  const [dueDateStr, setDueDateStr] = useState("");
 
   const handleInputChange = (value: any, name: string) => {
+    if (name === "dueDate") {
+      setDueDateStr(value);
+      setData((prev) => ({
+        ...prev,
+        dueDate: value ? new Date(value + "T00:00:00") : prev.dueDate,
+      }));
+      return;
+    }
     setData((prev) => ({
       ...prev,
       [name]: value,
@@ -31,7 +40,17 @@ export function EditBill() {
     const currentBill = getBillById(id);
     if (!currentBill) return navigate("/");
     setData(currentBill);
+    setDueDateStr(formatDateToInput(currentBill.dueDate));
   }, [id]);
+
+function formatDateToInput(date: Date) {
+  if (!date) return "";
+  const d = new Date(date);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
 
   return (
     <Screen.Root>
@@ -50,6 +69,10 @@ export function EditBill() {
           />
           <BillForm.IsPaidInput
             value={data.isPaid}
+            onChange={handleInputChange}
+          />
+          <BillForm.DueDateInput
+            value={dueDateStr}
             onChange={handleInputChange}
           />
           <BillForm.SubmitButton />

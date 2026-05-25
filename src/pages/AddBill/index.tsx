@@ -13,6 +13,7 @@ export function AddBill() {
   const [data, setData] = useState({
     title: "",
     value: 0,
+    dueDate: "",
   });
 
   const handleInputChange = (value: any, name: string) => {
@@ -30,6 +31,7 @@ export function AddBill() {
       title: data.title,
       value: Number(data.value),
       isPaid: false,
+      dueDate: data.dueDate ? new Date(data.dueDate + "T00:00:00") : null,
     } as IBill;
     createBill(bill);
     navigate("/");
@@ -48,6 +50,10 @@ export function AddBill() {
           />
           <BillForm.ValueInput
             value={data.value}
+            onChange={handleInputChange}
+          />
+          <BillForm.DueDateInput
+            value={data.dueDate}
             onChange={handleInputChange}
           />
           <BillForm.SubmitButton />

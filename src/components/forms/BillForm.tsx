@@ -1,4 +1,4 @@
-import { CurrencyDollar, Tag } from "@phosphor-icons/react";
+import { CalendarBlank, CurrencyDollar, Tag } from "@phosphor-icons/react";
 import { FormEventHandler, ReactNode } from "react";
 import { TextInput } from "../../components/forms/TextInput";
 import { Button } from "../../components/ui/Button";
@@ -95,6 +95,31 @@ function BillFormIsPaidInput({ value, onChange }: BillFormIsPaidInputProps) {
 }
 BillFormIsPaidInput.displayName = "BillForm.IsPaidInput";
 
+interface BillFormDueDateInputProps {
+  value?: string;
+  onChange: (value: string, name: string) => void;
+}
+
+function BillFormDueDateInput({ value, onChange }: BillFormDueDateInputProps) {
+  return (
+    <div className="space-y-1">
+      <Text>Due date</Text>
+      <TextInput.Root>
+        <TextInput.Icon>
+          <CalendarBlank />
+        </TextInput.Icon>
+        <TextInput.Input
+          type="date"
+          id="dueDate"
+          value={value}
+          onChange={(e) => onChange(e.target.value, e.target.id)}
+        />
+      </TextInput.Root>
+    </div>
+  );
+}
+BillFormDueDateInput.displayName = "BillForm.DueDateInput";
+
 function BillFormSubmitButton() {
   return (
     <div className="pt-5">
@@ -109,5 +134,6 @@ export const BillForm = {
   TitleInput: BillFormTitleInput,
   ValueInput: BillFormValueInput,
   IsPaidInput: BillFormIsPaidInput,
+  DueDateInput: BillFormDueDateInput,
   SubmitButton: BillFormSubmitButton,
 };
