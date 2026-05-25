@@ -51,10 +51,16 @@ export function Home() {
   }, [bills]);
 
   const filteredBills = useMemo(() => {
-    if (selectedMonth === "all") return bills;
-    return bills.filter((bill) => {
-      const key = formatMonthKey(getEffectiveDate(bill));
-      return key === selectedMonth;
+    const list = selectedMonth === "all"
+      ? bills
+      : bills.filter((bill) => {
+          const key = formatMonthKey(getEffectiveDate(bill));
+          return key === selectedMonth;
+        });
+    return [...list].sort((a, b) => {
+      const dateA = new Date(getEffectiveDate(a));
+      const dateB = new Date(getEffectiveDate(b));
+      return dateB.getTime() - dateA.getTime();
     });
   }, [bills, selectedMonth]);
 
