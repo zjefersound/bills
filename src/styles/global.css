@@ -31,3 +31,11 @@ div,
 a {
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+input[type="date"]::-webkit-inner-spin-button {
+  display: none;
+}

@@ -7,6 +7,10 @@ import { TimeFilter } from "../../components/ui/TimeFilter";
 import { useBill } from "../../hooks/useBill";
 import { HomeHeader } from "./components/HomeHeader";
 
+function getEffectiveDate(bill: { dueDate?: Date; createdAt: Date }) {
+  return new Date(bill.dueDate || bill.createdAt);
+}
+
 function formatMonthKey(date: Date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -15,10 +19,8 @@ function formatMonthKey(date: Date) {
 
 function formatMonthLabel(year: number, month: number) {
   const date = new Date(year, month - 1);
-  return date.toLocaleDateString("pt-BR", {
-    month: "long",
-    year: "numeric",
-  });
+  const monthName = date.toLocaleDateString("pt-BR", { month: "long" });
+  return `${monthName}/${year}`;
 }
 
 export function Home() {
@@ -33,7 +35,7 @@ export function Home() {
     const months: { value: string; label: string }[] = [];
 
     for (const bill of bills) {
-      const key = formatMonthKey(new Date(bill.createdAt));
+      const key = formatMonthKey(getEffectiveDate(bill));
       if (!seen.has(key)) {
         seen.add(key);
         const [yearStr, monthStr] = key.split("-");
@@ -49,10 +51,16 @@ export function Home() {
   }, [bills]);
 
   const filteredBills = useMemo(() => {
-    if (selectedMonth === "all") return bills;
-    return bills.filter((bill) => {
-      const key = formatMonthKey(new Date(bill.createdAt));
-      return key === selectedMonth;
+    const list = selectedMonth === "all"
+      ? bills
+      : bills.filter((bill) => {
+          const key = formatMonthKey(getEffectiveDate(bill));
+          return key === selectedMonth;
+        });
+    return [...list].sort((a, b) => {
+      const dateA = new Date(getEffectiveDate(a));
+      const dateB = new Date(getEffectiveDate(b));
+      return dateB.getTime() - dateA.getTime();
     });
   }, [bills, selectedMonth]);
 

@@ -29,12 +29,14 @@ const BillProvider = ({ children }: BillProviderProps) => {
   };
 
   const createBill = (bill: IBill) => {
+    const createdAt = new Date();
     const newBill: IBill = {
       id: Math.random().toString(),
       title: bill.title,
       value: bill.value,
       isPaid: false,
-      createdAt: new Date(),
+      dueDate: bill.dueDate || createdAt,
+      createdAt,
     };
     setBills((prev) => {
       const value = [...prev, newBill];
