@@ -1,12 +1,14 @@
 import { Plus } from "@phosphor-icons/react";
 import { Link } from "react-router-dom";
 import { Text } from "../../../components/ui/Text";
-import { useBill } from "../../../hooks/useBill";
 import { toCurrency } from "../../../utils/toCurrency";
 
-export function HomeHeader() {
-  const { totalPaid, totalToPay } = useBill();
+interface HomeHeaderProps {
+  totalPaid: number;
+  totalToPay: number;
+}
 
+export function HomeHeader({ totalPaid, totalToPay }: HomeHeaderProps) {
   return (
     <>
       <Text asChild>
@@ -33,11 +35,7 @@ export function HomeHeader() {
         </div>
         <Link
           to="/add-bill"
-          className={`ml-auto p-3 rounded-md 
-              flex items-center whitespace-nowrap 
-              text-green-500 hover:text-green-300 
-              hover:bg-gray-800 transition-all 
-              active:opacity-75`}
+          className="ml-auto p-3 rounded-md flex items-center whitespace-nowrap text-green-500 hover:text-green-300 hover:bg-gray-800 transition-all active:opacity-75"
         >
           <Plus className="mr-2" />
           Add Bill
